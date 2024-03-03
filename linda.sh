@@ -6,6 +6,15 @@ read -p "Enter commit message: " commit_message
 # Interactive prompt for branch name
 read -p "Enter branch name: " branch_name
 
+# Check if the branch already exists
+if git rev-parse --verify "$branch_name" >/dev/null 2>&1; then
+  echo "Branch '$branch_name' already exists."
+else
+  # Create a new branch
+  git checkout -b "$branch_name"
+  echo "New branch '$branch_name' created."
+fi
+
 # Add all changes
 git add .
 
@@ -19,21 +28,13 @@ echo "Code successfully pushed to branch $branch_name with commit message: $comm
 
 
 
-
-
 # #!/bin/bash
 
-# # Check if user provided commit message and branch name
-# if [ $# -lt 2 ]; then
-#     echo "Usage: $0 <commit_message> <branch_name>"
-#     exit 1
-# fi
+# # Interactive prompt for commit message
+# read -p "Enter commit message: " commit_message
 
-# # Commit message
-# commit_message="$1"
-
-# # Branch name
-# branch_name="$2"
+# # Interactive prompt for branch name
+# read -p "Enter branch name: " branch_name
 
 # # Add all changes
 # git add .
